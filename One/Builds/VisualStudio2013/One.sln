@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2013
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "One - VST", "One_VST.vcxproj", "{26DDE1A6-3911-6EC6-ED40-C04BBE41E083}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1AAD1008-B7CB-5415-4EB8-738FC9C28553} = {1AAD1008-B7CB-5415-4EB8-738FC9C28553}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "One - Shared Code", "One_SharedCode.vcxproj", "{1AAD1008-B7CB-5415-4EB8-738FC9C28553}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26DDE1A6-3911-6EC6-ED40-C04BBE41E083}.Debug|x64.Build.0 = Debug|x64
+		{26DDE1A6-3911-6EC6-ED40-C04BBE41E083}.Debug|x64.ActiveCfg = Debug|x64
+		{26DDE1A6-3911-6EC6-ED40-C04BBE41E083}.Release|x64.Build.0 = Release|x64
+		{26DDE1A6-3911-6EC6-ED40-C04BBE41E083}.Release|x64.ActiveCfg = Release|x64
+		{1AAD1008-B7CB-5415-4EB8-738FC9C28553}.Debug|x64.Build.0 = Debug|x64
+		{1AAD1008-B7CB-5415-4EB8-738FC9C28553}.Debug|x64.ActiveCfg = Debug|x64
+		{1AAD1008-B7CB-5415-4EB8-738FC9C28553}.Release|x64.Build.0 = Release|x64
+		{1AAD1008-B7CB-5415-4EB8-738FC9C28553}.Release|x64.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

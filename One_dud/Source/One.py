@@ -1,0 +1,39 @@
+left=Input([0],mul=0.5)
+right=Input([1],mul=0.5)
+left_in=Gate(left,risetime=0.015)
+right_in=Gate(right,risetime=0.015)
+la=left_in
+lb=Chorus(la,bal=0.1)
+lc=ButHP(lb,40)
+ld1=ButHP(lc,40)
+ld2=ButLP(ld1,2250)
+ld3=ButLP(ld2,7000)
+ld4=ButLP(ld3,7000)
+ld5=ButLP(ld4,7000)
+le=ButBR(ld5,3880)
+lf=ButBR(le,7000)
+ra=right_in
+rb=Chorus(ra,bal=0.1)
+rc=ButHP(rb,40)
+rd1=ButHP(rc,40)
+rd2=ButLP(rd1,2250)
+rd3=ButLP(rd2,7000)
+rd4=ButLP(rd3,7000)
+rd5=ButLP(rd4,7000)
+re=ButBR(rd5,3880)
+rf=ButBR(re,7000)
+mid=left_in+right_in
+mid_now=PeakAmp(mid)
+
+mid_low=ButLP(mid,freq=40,mul=2)
+left_out=mid_low+lf
+right_out=mid_low+rf
+if(mid_now.get()>0.25):
+    left_out_normalized=Tanh(left_out,mul=20.0*1.0/mid_now.get())
+    right_out_normalized=Tanh(right_out,mul=20.0*1.0/mid_now.get())
+else:
+    left_out_normalized=Tanh(left_out,mul=20.0)
+    right_out_normalized=Tanh(right_out,mul=20.0)
+left_out_normalized.out([0])
+right_out_normalized.out([1])
+
