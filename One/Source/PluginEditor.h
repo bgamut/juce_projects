@@ -75,7 +75,7 @@ public:
         noParameterLabel.setJustificationType (Justification::horizontallyCentred | Justification::verticallyCentred);
         noParameterLabel.setFont (noParameterLabel.getFont().withStyle (Font::italic));
         //setSize(200,200);
-        setSize (kParamSliderWidth + kParamLabelWidth,jmax (1, kParamControlHeight * paramSliders.size()));
+        //setSize (kParamSliderWidth + kParamLabelWidth,jmax (1, kParamControlHeight * paramSliders.size()));
         
         if (paramSliders.size() == 0)
             addAndMakeVisible (noParameterLabel);

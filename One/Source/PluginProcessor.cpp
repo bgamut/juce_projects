@@ -599,9 +599,9 @@ public:
              }
              */
             {
-                float newSample1=gate1.process(clipper1.process(filter12.process(filter2.process(filter3.process(filter4.process(filter5.process(filter6.process(phaser1.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/2.0)*toLinear(-2.0);
+                float newSample1=gate1.process(clipper1.process(filter12.process(filter2.process(filter3.process(filter4.process(filter5.process(filter6.process(phaser1.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
                 left=newSample1;
-                float newSample2=gate2.process(clipper2.process(filter13.process(filter7.process(filter8.process(filter9.process(filter10.process(filter11.process(phaser2.Update(main.getSample(1,j))+main.getSample(0,j))/2.0)))))+(mono))/2.0)*toLinear(-2.0);
+                float newSample2=gate2.process(clipper2.process(filter13.process(filter7.process(filter8.process(filter9.process(filter10.process(filter11.process(phaser2.Update(main.getSample(1,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
                 right=newSample2;
                 
                 main.setSample(0,j,newSample1);
@@ -637,7 +637,7 @@ public:
     
     //==============================================================================
     AudioProcessorEditor* createEditor() override { return new GenericEditor (*this); }
-    bool hasEditor() const override               { return true;   }
+    bool hasEditor() const override               { return false;   }
     
     //==============================================================================
     const String getName() const override               { return "One"; }
