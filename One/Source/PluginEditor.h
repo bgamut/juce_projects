@@ -21,6 +21,12 @@
  
  ==============================================================================
  */
+/*
+#define JucePlugin_MaxNumInputChannels 2
+#define JucePlugin_MaxNumOutputChannels 2
+#define JucePlugin_PreferredChannelConfigurations {1, 1}, {2, 2}
+*/
+
 
 class GenericEditor : public AudioProcessorEditor,
 public Slider::Listener,
@@ -46,11 +52,12 @@ public:
         float x=100;
         float y=100;
         
-        
+        setSize(200,200);
         const OwnedArray<AudioProcessorParameter>& params = parent.getParameters();
         
         for (int i = 0; i < params.size(); ++i)
         {
+            /*
             if (const AudioParameterFloat* param = dynamic_cast<AudioParameterFloat*> (params[i]))
             {
                 Slider* aSlider;
@@ -70,11 +77,31 @@ public:
                 paramLabels.add (aLabel = new Label (param->name, param->name));
                 addAndMakeVisible (aLabel);
             }
+             */
+            if (const AudioParameterFloat* param = dynamic_cast<AudioParameterFloat*> (params[i]))
+            {
+                if(param->name=="Volume")
+                {
+                    Slider* aSlider;
+                    
+                    paramSliders.add (aSlider = new Slider (param->name));
+                    aSlider->setRange (param->range.start, param->range.end);
+                    //aSlider->setSliderStyle (Slider::LinearHorizontal);
+                    aSlider->setSliderStyle (Slider::Rotary);
+                    aSlider->setTextBoxStyle(Slider::NoTextBox,true,0,0);
+                    aSlider->setLookAndFeel(&otherLookAndFeel);
+                    aSlider->setValue (*param);
+                    aSlider->addListener (this);
+                    aSlider->setCentrePosition(x,y*1.05);
+                    aSlider->setBounds(0,0,getWidth(),getHeight());
+                    //aSlider->setCentrePosition(100,105);
+                    addAndMakeVisible (aSlider);
+                }
+            }
         }
         
-        noParameterLabel.setJustificationType (Justification::horizontallyCentred | Justification::verticallyCentred);
-        noParameterLabel.setFont (noParameterLabel.getFont().withStyle (Font::italic));
-        //setSize(200,200);
+        
+        
         //setSize (kParamSliderWidth + kParamLabelWidth,jmax (1, kParamControlHeight * paramSliders.size()));
         
         if (paramSliders.size() == 0)
@@ -104,32 +131,19 @@ public:
     
     void paint (Graphics& g) override
     {
-        
+        float x=getWidth()/2.0;
+        float y=getHeight()/2.0;
         g.fillAll (Colours::black);
         //g.setColour(Colours::black);
         // (Our component is opaque, so we must completely fill the background with a solid colour)
         g.setColour(Colours::white);
-        /*
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(process.l7)));
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.l6)));
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.l5)));
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.l4)));
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.l3)));
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.l2)));
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.l1)));
-        g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.left)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.r7)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.r6)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.r5)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.r4)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.r3)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.r2)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.r1)));
-        g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.right)));
         
         
+        //g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.left)));
+        //g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.right)));
         g.setFont (10.0f);
         //g.drawFittedText (std::to_string(processor.monoLevel), getLocalBounds(), Justification::centred, 1);
+        /*
         if (isnan(log(parent.left)/log(powf(2.0, 1.0/6.0))==0))
         {
             g.drawFittedText(std::to_string(log(parent.left)/log(powf(2.0, 1.0/6.0))),0,int(getHeight()-20),int(x),20,Justification::centred,1);
@@ -139,6 +153,8 @@ public:
             g.drawFittedText(std::to_string(log(processor.right)/log(powf(2.0, 1.0/6.0))),int(x),int(getHeight()-20),int(x),20,Justification::centred,1);
         }
         */
+         
+        
         setResizable(true,true);
         
     }
@@ -163,6 +179,46 @@ public:
     }
     
 private:
+    class ParameterSlider   : public Slider,
+    private Timer
+    {
+    public:
+        ParameterSlider (AudioProcessorParameter& p)
+        : Slider (p.getName (256)), param (p)
+        {
+            setRange (0.0, 1.0, 0.0);
+            startTimerHz (30);
+            updateSliderPos();
+        }
+        
+        void valueChanged() override
+        {
+            if (isMouseButtonDown())
+                param.setValueNotifyingHost ((float) Slider::getValue());
+            else
+                param.setValue ((float) Slider::getValue());
+        }
+        
+        void timerCallback() override       { updateSliderPos(); }
+        
+        void startedDragging() override     { param.beginChangeGesture(); }
+        void stoppedDragging() override     { param.endChangeGesture();   }
+        
+        double getValueFromText (const String& text) override   { return param.getValueForText (text); }
+        String getTextFromValue (double value) override         { return param.getText ((float) value, 1024); }
+        
+        void updateSliderPos()
+        {
+            const float newValue = param.getValue();
+            
+            if (newValue != (float) Slider::getValue() && ! isMouseButtonDown())
+                Slider::setValue (newValue);
+        }
+        
+        AudioProcessorParameter& param;
+        
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ParameterSlider)
+    };
     void timerCallback() override
     {
         const OwnedArray<AudioProcessorParameter>& params = getAudioProcessor()->getParameters();
@@ -186,5 +242,6 @@ private:
     Label noParameterLabel;
     OwnedArray<Slider> paramSliders;
     OwnedArray<Label> paramLabels;
+    ScopedPointer<ParameterSlider> gainSlider;
 };
 

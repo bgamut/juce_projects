@@ -534,7 +534,7 @@ public:
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override {
         mono=0.0;
-        sr1=sampleRate;
+        sr1=float(sampleRate);
         bs1=samplesPerBlock;
         fq1=2*sin((PI)*f1/sr1);
         fq2=2*sin((PI)*f2/sr1);
@@ -582,54 +582,114 @@ public:
     {
         buffer.applyGain (*gain);
         AudioSampleBuffer main=getBusBuffer(buffer,true,0);
-        for (int j=0; j<main.getNumSamples(); ++j)
+        if(getNumInputChannels() ==1)
         {
-            //main.applyGainRamp(0, 0, main.getNumSamples(), currentLevel, targetLevel);
-            //main.applyGainRamp(1, 0, main.getNumSamples(), currentLevel, targetLevel);
-            float mono = filter1.process(main.getSample(0,j)+main.getSample(1,j));
-            monoLevel = (fabs(mono)/2.0);
-            /*
-             if(isnan(monoLevel)==0 && monoLevel>0.5 && monoLevel!=0.0)
-             {
-             main.applyGain((1.0/monoLevel)*0.5);
-             }
-             else
-             {
-             main.applyGain(1.0);
-             }
-             */
+            for (int j=0; j<main.getNumSamples(); ++j)
             {
-                float newSample1=gate1.process(clipper1.process(filter12.process(filter2.process(filter3.process(filter4.process(filter5.process(filter6.process(phaser1.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
-                left=newSample1;
-                float newSample2=gate2.process(clipper2.process(filter13.process(filter7.process(filter8.process(filter9.process(filter10.process(filter11.process(phaser2.Update(main.getSample(1,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
-                right=newSample2;
+                //main.applyGainRamp(0, 0, main.getNumSamples(), currentLevel, targetLevel);
+                //main.applyGainRamp(1, 0, main.getNumSamples(), currentLevel, targetLevel);
+                float mono = filter1.process(main.getSample(0,j));
+                monoLevel = (fabs(mono));
+                /*
+                 if(isnan(monoLevel)==0 && monoLevel>0.5 && monoLevel!=0.0)
+                 {
+                 main.applyGain((1.0/monoLevel)*0.5);
+                 }
+                 else
+                 {
+                 main.applyGain(1.0);
+                 }
+                 */
+                {
+                    
+                    
+                    float newSample1=gate1.process(clipper1.process(filter12.process(filter2.process(filter3.process(filter4.process(filter5.process(filter6.process(phaser1.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
+                    left=newSample1;
+                    float newSample2=gate2.process(clipper2.process(filter13.process(filter7.process(filter8.process(filter9.process(filter10.process(filter11.process(phaser2.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
+                    right=newSample2;
+                    
+                    
+                    main.setSample(0,j,newSample1);
+                    //main.setSample(1,j,newSample2);
+                    l9=l8;
+                    r9=r8;
+                    l8=l7;
+                    r8=r7;
+                    l7=l6;
+                    r7=r6;
+                    l6=l5;
+                    r6=r5;
+                    l5=l4;
+                    r5=r4;
+                    l4=l3;
+                    r4=r3;
+                    l3=l2;
+                    r3=r2;
+                    l2=l1;
+                    r2=r1;
+                    l1=l0;
+                    r1=r0;
+                    l0=tanh(left*10);
+                    r0=tanh(right*10);
+                }
+            }
+                    
+                    
+        }
+        else if(getNumInputChannels()==2)
+        {
+            for (int j=0; j<main.getNumSamples(); ++j)
+            {
+                //main.applyGainRamp(0, 0, main.getNumSamples(), currentLevel, targetLevel);
+                //main.applyGainRamp(1, 0, main.getNumSamples(), currentLevel, targetLevel);
+                float mono = filter1.process(main.getSample(0,j)+main.getSample(1,j));
+                monoLevel = (fabs(mono)/2.0);
+                /*
+                 if(isnan(monoLevel)==0 && monoLevel>0.5 && monoLevel!=0.0)
+                 {
+                 main.applyGain((1.0/monoLevel)*0.5);
+                 }
+                 else
+                 {
+                 main.applyGain(1.0);
+                 }
+                 */
+                {
                 
-                main.setSample(0,j,newSample1);
-                main.setSample(1,j,newSample2);
-                l9=l8;
-                r9=r8;
-                l8=l7;
-                r8=r7;
-                l7=l6;
-                r7=r6;
-                l6=l5;
-                r6=r5;
-                l5=l4;
-                r5=r4;
-                l4=l3;
-                r4=r3;
-                l3=l2;
-                r3=r2;
-                l2=l1;
-                r2=r1;
-                l1=l0;
-                r1=r0;
-                l0=tanh(left*10);
-                r0=tanh(right*10);
+                
+                    float newSample1=gate1.process(clipper1.process(filter12.process(filter2.process(filter3.process(filter4.process(filter5.process(filter6.process(phaser1.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
+                    left=newSample1;
+                    float newSample2=gate2.process(clipper2.process(filter13.process(filter7.process(filter8.process(filter9.process(filter10.process(filter11.process(phaser2.Update(main.getSample(1,j))+main.getSample(1,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
+                    right=newSample2;
+                
+                
+                    main.setSample(0,j,newSample1);
+                    main.setSample(1,j,newSample2);
+                    l9=l8;
+                    r9=r8;
+                    l8=l7;
+                    r8=r7;
+                    l7=l6;
+                    r7=r6;
+                    l6=l5;
+                    r6=r5;
+                    l5=l4;
+                    r5=r4;
+                    l4=l3;
+                    r4=r3;
+                    l3=l2;
+                    r3=r2;
+                    l2=l1;
+                    r2=r1;
+                    l1=l0;
+                    r1=r0;
+                    l0=tanh(left*10);
+                    r0=tanh(right*10);
                 
                 
                 
                 //main.applyGain(targetLevel);
+                }
             }
         }
         
@@ -637,7 +697,7 @@ public:
     
     //==============================================================================
     AudioProcessorEditor* createEditor() override { return new GenericEditor (*this); }
-    bool hasEditor() const override               { return false;   }
+    bool hasEditor() const override               { return true;   }
     
     //==============================================================================
     const String getName() const override               { return "One"; }
@@ -662,10 +722,9 @@ public:
     {
         *gain = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
     }
-    
+    AudioParameterFloat* gain;
 private:
     //==============================================================================
-    AudioParameterFloat* gain;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OneProcessor)
