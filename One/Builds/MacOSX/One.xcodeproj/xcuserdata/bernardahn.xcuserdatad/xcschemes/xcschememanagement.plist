@@ -4,20 +4,40 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>One - AU.xcscheme</key>
+		<key>One - AAX.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>One - AU.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>One - AUv3 AppExtension.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>One - All.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>One - RTAS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>One - Shared Code.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>7</integer>
+		</dict>
+		<key>One - Standalone Plugin.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>One - VST.xcscheme</key>
 		<dict>
@@ -28,6 +48,41 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>01A8E90671FA966267F9A3A4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>24396C2B619F881735E5E84D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>549D5484167E4D6164BE2867</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8BAC6A9F6B1DA5D2B76B6112</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C95C10F694AF7B4CED28CD54</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D3F7836D6DB1F91D464F2F47</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D715CF94940B231671014783</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EFD95DC28C781A776744D197</key>
 		<dict>
 			<key>primary</key>
 			<true/>

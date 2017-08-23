@@ -438,6 +438,40 @@ add_library( ${BINARY_NAME}
     "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_processors/juce_audio_processors.cpp"
     "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_processors/juce_audio_processors.mm"
     "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_processors/juce_audio_processors.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/audio_cd/juce_AudioCDBurner.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioAppComponent.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioAppComponent.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioDeviceSelectorComponent.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioDeviceSelectorComponent.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnail.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnail.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnailBase.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnailCache.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnailCache.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioVisualiserComponent.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioVisualiserComponent.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_BluetoothMidiDevicePairingDialogue.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_MidiKeyboardComponent.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_MidiKeyboardComponent.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_android_BluetoothMidiDevicePairingDialogue.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_ios_BluetoothMidiDevicePairingDialogue.mm"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_linux_AudioCDReader.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_linux_BluetoothMidiDevicePairingDialogue.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_mac_AudioCDBurner.mm"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_mac_AudioCDReader.mm"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_mac_BluetoothMidiDevicePairingDialogue.mm"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_win_BluetoothMidiDevicePairingDialogue.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_win32_AudioCDBurner.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_win32_AudioCDReader.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_AudioProcessorPlayer.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_AudioProcessorPlayer.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_SoundPlayer.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_SoundPlayer.h"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/juce_audio_utils.cpp"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/juce_audio_utils.mm"
+    "../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/juce_audio_utils.h"
     "../../../../../../../../../Applications/JUCE5.0/modules/juce_core/containers/juce_AbstractFifo.cpp"
     "../../../../../../../../../Applications/JUCE5.0/modules/juce_core/containers/juce_AbstractFifo.h"
     "../../../../../../../../../Applications/JUCE5.0/modules/juce_core/containers/juce_Array.h"
@@ -1276,8 +1310,10 @@ add_library( ${BINARY_NAME}
     "../../../JuceLibraryCode/include_juce_audio_basics.cpp"
     "../../../JuceLibraryCode/include_juce_audio_devices.cpp"
     "../../../JuceLibraryCode/include_juce_audio_formats.cpp"
+    "../../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
     "../../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp"
     "../../../JuceLibraryCode/include_juce_audio_processors.cpp"
+    "../../../JuceLibraryCode/include_juce_audio_utils.cpp"
     "../../../JuceLibraryCode/include_juce_core.cpp"
     "../../../JuceLibraryCode/include_juce_cryptography.cpp"
     "../../../JuceLibraryCode/include_juce_data_structures.cpp"
@@ -1700,6 +1736,40 @@ set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/mod
 set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_processors/juce_audio_processors.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_processors/juce_audio_processors.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_processors/juce_audio_processors.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/audio_cd/juce_AudioCDBurner.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioAppComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioAppComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioDeviceSelectorComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioDeviceSelectorComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnail.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnail.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnailBase.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnailCache.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioThumbnailCache.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioVisualiserComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_AudioVisualiserComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_BluetoothMidiDevicePairingDialogue.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_MidiKeyboardComponent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/gui/juce_MidiKeyboardComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_android_BluetoothMidiDevicePairingDialogue.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_ios_BluetoothMidiDevicePairingDialogue.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_linux_AudioCDReader.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_linux_BluetoothMidiDevicePairingDialogue.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_mac_AudioCDBurner.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_mac_AudioCDReader.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_mac_BluetoothMidiDevicePairingDialogue.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_win_BluetoothMidiDevicePairingDialogue.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_win32_AudioCDBurner.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/native/juce_win32_AudioCDReader.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_AudioProcessorPlayer.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_AudioProcessorPlayer.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_SoundPlayer.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/players/juce_SoundPlayer.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/juce_audio_utils.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/juce_audio_utils.mm" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_audio_utils/juce_audio_utils.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_core/containers/juce_AbstractFifo.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_core/containers/juce_AbstractFifo.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("../../../../../../../../../Applications/JUCE5.0/modules/juce_core/containers/juce_Array.h" PROPERTIES HEADER_FILE_ONLY TRUE)

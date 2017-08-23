@@ -22,7 +22,7 @@
  ==============================================================================
  */
 
-#include "JuceHeader.h"
+//#include "JuceHeader.h"
 #include "PluginEditor.h"
 #include "math.h"
 //==============================================================================
@@ -522,8 +522,8 @@ public:
     //==============================================================================
     OneProcessor()
     {
-        addParameter (gain = new AudioParameterFloat ("volume", // parameterID
-                                                      "Volume", // parameter name
+        addParameter (gain = new AudioParameterFloat ("dry/wet", // parameterID
+                                                      "dry/wet", // parameter name
                                                       0.0f,   // mininum value
                                                       1.0f,   // maximum value
                                                       0.5f)); // default value
@@ -580,12 +580,14 @@ public:
     
     void processBlock (AudioSampleBuffer& buffer, MidiBuffer&) override
     {
-        buffer.applyGain (*gain);
+        //buffer.applyGain (*gain);
         AudioSampleBuffer main=getBusBuffer(buffer,true,0);
         if(getNumInputChannels() ==1)
         {
             for (int j=0; j<main.getNumSamples(); ++j)
             {
+                float rawLeft=main.getSample(0,j);
+                float rawRight=main.getSample(0,j);
                 //main.applyGainRamp(0, 0, main.getNumSamples(), currentLevel, targetLevel);
                 //main.applyGainRamp(1, 0, main.getNumSamples(), currentLevel, targetLevel);
                 float mono = filter1.process(main.getSample(0,j));
@@ -604,9 +606,9 @@ public:
                     
                     
                     float newSample1=gate1.process(clipper1.process(filter12.process(filter2.process(filter3.process(filter4.process(filter5.process(filter6.process(phaser1.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
-                    left=newSample1;
+                    left=(newSample1)*(*gain)+(rawLeft*(1.0-*gain));
                     float newSample2=gate2.process(clipper2.process(filter13.process(filter7.process(filter8.process(filter9.process(filter10.process(filter11.process(phaser2.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
-                    right=newSample2;
+                    right=(newSample2)*(*gain)+(rawRight*(1.0-*gain));
                     
                     
                     main.setSample(0,j,newSample1);
@@ -642,6 +644,8 @@ public:
             {
                 //main.applyGainRamp(0, 0, main.getNumSamples(), currentLevel, targetLevel);
                 //main.applyGainRamp(1, 0, main.getNumSamples(), currentLevel, targetLevel);
+                float rawLeft=main.getSample(0,j);
+                float rawRight=main.getSample(0,j);
                 float mono = filter1.process(main.getSample(0,j)+main.getSample(1,j));
                 monoLevel = (fabs(mono)/2.0);
                 /*
@@ -658,13 +662,13 @@ public:
                 
                 
                     float newSample1=gate1.process(clipper1.process(filter12.process(filter2.process(filter3.process(filter4.process(filter5.process(filter6.process(phaser1.Update(main.getSample(0,j))+main.getSample(0,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
-                    left=newSample1;
+                    left=(newSample1)*(*gain)+(rawLeft*(1.0-*gain));
                     float newSample2=gate2.process(clipper2.process(filter13.process(filter7.process(filter8.process(filter9.process(filter10.process(filter11.process(phaser2.Update(main.getSample(1,j))+main.getSample(1,j))/2.0)))))+(mono))/0.25)*toLinear(-2.0);
-                    right=newSample2;
+                    right=(newSample2)*(*gain)+(rawRight*(1.0-*gain));
                 
                 
-                    main.setSample(0,j,newSample1);
-                    main.setSample(1,j,newSample2);
+                    main.setSample(0,j,left);
+                    main.setSample(1,j,right);
                     l9=l8;
                     r9=r8;
                     l8=l7;
@@ -723,6 +727,8 @@ public:
         *gain = MemoryInputStream (data, static_cast<size_t> (sizeInBytes), false).readFloat();
     }
     AudioParameterFloat* gain;
+    float left;
+    float right;
 private:
     //==============================================================================
     
@@ -740,7 +746,7 @@ private:
     float ramp;
     float targetLevel=0.5;
     float sliderLevel=0.5;
-    float left;
+    
     float l0;
     float l1;
     float l2;
@@ -751,7 +757,7 @@ private:
     float l7;
     float l8;
     float l9;
-    float right;
+    
     float r0;
     float r1;
     float r2;

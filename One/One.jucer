@@ -3,12 +3,12 @@
 <JUCERPROJECT id="PymESj" name="One" displaySplashScreen="1" reportAppUsage="1"
               splashScreenColour="Dark" projectType="audioplug" version="1.0.0"
               bundleIdentifier="com.yourcompany.One" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="0" buildAU="1" buildAUv3="0" buildRTAS="0"
-              buildAAX="0" buildStandalone="0" enableIAA="0" pluginName="One"
+              buildVST="1" buildVST3="0" buildAU="1" buildAUv3="1" buildRTAS="1"
+              buildAAX="1" buildStandalone="1" enableIAA="1" pluginName="One"
               pluginDesc="One" pluginManufacturer="squwbs" pluginManufacturerCode="Manu"
               pluginCode="Pyme" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
               pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
-              pluginAUExportPrefix="OneAU" pluginRTASCategory="" aaxIdentifier="com.yourcompany.One"
+              pluginAUExportPrefix="OneAU" pluginRTASCategory="" aaxIdentifier="com.squwbs.One"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.0.2">
   <MAINGROUP id="Gn4fED" name="One">
     <GROUP id="{2A4F9C0E-4C2B-F783-5BCC-58A0AD2C5E81}" name="Source">
@@ -38,6 +38,7 @@
         <MODULEPATH id="juce_audio_formats" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../Applications/JUCE5.0/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <XCODE_IPHONE targetFolder="Builds/iOS" iosScreenOrientation="portraitlandscape">
@@ -60,6 +61,7 @@
         <MODULEPATH id="juce_audio_formats" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../Applications/JUCE5.0/modules"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
     <VS2013 targetFolder="Builds/VisualStudio2013">
@@ -84,6 +86,7 @@
         <MODULEPATH id="juce_audio_formats" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../Applications/JUCE5.0/modules"/>
       </MODULEPATHS>
     </VS2013>
     <ANDROIDSTUDIO targetFolder="Builds/Android">
@@ -108,6 +111,7 @@
         <MODULEPATH id="juce_audio_formats" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../../../../Applications/JUCE5.0/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../Applications/JUCE5.0/modules"/>
       </MODULEPATHS>
     </ANDROIDSTUDIO>
   </EXPORTFORMATS>
@@ -117,6 +121,7 @@
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>

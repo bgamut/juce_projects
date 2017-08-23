@@ -26,8 +26,48 @@
 #define JucePlugin_MaxNumOutputChannels 2
 #define JucePlugin_PreferredChannelConfigurations {1, 1}, {2, 2}
 */
-
-
+#include "JuceHeader.h"
+/*
+class bufferUp: public AudioProcessor{
+    public:
+        bufferUp()
+        {
+            leftNow(0.0);
+            rightNow(0.0);
+        }
+        ~bufferUp(){}
+    void prepareToPlay(double sampleRate,int samplesPerBlock) override{
+        
+        
+    }
+    void processBlock(AudioSampleBuffer& buffer, MidiBuffer&) override
+    {
+        AudioSampleBuffer main=getBusBuffer(buffer,true,0);
+        if(getNumInputChannels()==1)
+        {
+            for (int i=0; i<main.getNumSamples(); ++i)
+            {
+                leftNow=main.getSample(0,i);
+                rightNow=main.getSample(0,i);
+                
+            }
+        }
+        else
+        {
+            for (int i=0; i<main.getNumSamples(); ++i)
+            {
+                leftNow=main.getSample(0,i);
+                rightNow=main.getSample(1,i);
+                
+                
+        }
+    }
+    float leftNow;
+    float rightNow;
+    private:
+    
+}
+*/
 class GenericEditor : public AudioProcessorEditor,
 public Slider::Listener,
 private Timer
@@ -42,15 +82,23 @@ public:
     
     GenericEditor (AudioProcessor& parent)
     : AudioProcessorEditor (parent),
-    noParameterLabel ("noparam", "No parameters available")
+    noParameterLabel ("noparam", "No parameters available"),
+    suck("Suck","Suck"),
+    more("More","More"),
+    less("Less","Less")
     {
         otherLookAndFeel.setColour(Slider::thumbColourId, juce::Colours::transparentBlack);
         otherLookAndFeel.setColour(Slider::backgroundColourId, Colours::grey);
-        otherLookAndFeel.setColour(Slider::trackColourId, Colours::white);
-        otherLookAndFeel.setColour(Slider::rotarySliderFillColourId, Colours::white);
+        otherLookAndFeel.setColour(Slider::trackColourId, Colours::black);
+        otherLookAndFeel.setColour(Slider::rotarySliderFillColourId, Colours::purple);
         otherLookAndFeel.setColour(Slider::rotarySliderOutlineColourId, Colours::black);
         float x=100;
         float y=100;
+        
+        //setSize(2048,670);//ipad air
+        //setSize(2208,726); //iphone 6+
+        //setSize(1334,404); //iphone 6
+        //setSize(1136,350); //iphone 5s
         
         setSize(200,200);
         const OwnedArray<AudioProcessorParameter>& params = parent.getParameters();
@@ -80,7 +128,7 @@ public:
              */
             if (const AudioParameterFloat* param = dynamic_cast<AudioParameterFloat*> (params[i]))
             {
-                if(param->name=="Volume")
+                if(param->name=="dry/wet")
                 {
                     Slider* aSlider;
                     
@@ -93,14 +141,26 @@ public:
                     aSlider->setValue (*param);
                     aSlider->addListener (this);
                     aSlider->setCentrePosition(x,y*1.05);
-                    aSlider->setBounds(0,0,getWidth(),getHeight());
-                    //aSlider->setCentrePosition(100,105);
+                    aSlider->setBounds(0,0,getWidth()-30,getHeight()-30);
+                    aSlider->setCentrePosition(100,105);
                     addAndMakeVisible (aSlider);
                 }
             }
         }
-        
-        
+        /*
+        suck.setText("Suck",dontSendNotification);
+        suck.setBounds(0,0,200,200);
+        suck.setCentrePosition(15,100);
+        addAndMakeVisible(suck);
+        more.setText("More",dontSendNotification);
+        more.setBounds(0,0,200,200);
+        more.setCentrePosition(185,15);
+        addAndMakeVisible(more);
+        less.setText("Less",dontSendNotification);
+        less.setBounds(0,0,200,200);
+        less.setCentrePosition(185,185);
+        addAndMakeVisible(less);
+        */
         
         //setSize (kParamSliderWidth + kParamLabelWidth,jmax (1, kParamControlHeight * paramSliders.size()));
         
@@ -133,16 +193,35 @@ public:
     {
         float x=getWidth()/2.0;
         float y=getHeight()/2.0;
+        
+        /*
+        class Hack
+        {
+        public:
+            AudioProcessor::Bus* getBus(AudioProcessor* p,int x){
+                return p->getBus(false,x);
+            }
+            AudioProcessor::AudioBuffer<FloatType> getBusBuffer
+            
+        };
+        Hack hack;
+        AudioProcessor::Bus* leftBus = hack.getBus(getAudioProcessor(),0);
+        AudioBuffer a=leftBus->getBusBuffer();
+        */
         g.fillAll (Colours::black);
         //g.setColour(Colours::black);
         // (Our component is opaque, so we must completely fill the background with a solid colour)
         g.setColour(Colours::white);
         
         
-        //g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.left)));
-        //g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(parent.right)));
+        //g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(left)));
+        //g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(right)));
         g.setFont (10.0f);
         //g.drawFittedText (std::to_string(processor.monoLevel), getLocalBounds(), Justification::centred, 1);
+        //g.drawFittedText("Suck",0,0,200,15,Justification::centred,1);
+        //g.drawFittedText("More",0,185,30,200,Justification::centred,1);
+        //g.drawFittedText("Less",170,185,200,200,Justification::centred,1);
+        
         /*
         if (isnan(log(parent.left)/log(powf(2.0, 1.0/6.0))==0))
         {
@@ -240,6 +319,9 @@ private:
     }
     LookAndFeel_V4 otherLookAndFeel;
     Label noParameterLabel;
+    Label suck;
+    Label more;
+    Label less;
     OwnedArray<Slider> paramSliders;
     OwnedArray<Label> paramLabels;
     ScopedPointer<ParameterSlider> gainSlider;
