@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="wSRg0e" name="ONE MOBILE" displaySplashScreen="0" reportAppUsage="1"
+              splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.ONEMOBILE" includeBinaryInAppConfig="1"
+              jucerVersion="5.0.2">
+  <MAINGROUP id="R1sHv9" name="ONE MOBILE">
+    <GROUP id="{4FCE739E-BE8F-4EFD-2F17-AF000A2322D7}" name="Source">
+      <FILE id="SYZd6p" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="GIheUR" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_IPHONE targetFolder="Builds/iOS" iosScreenOrientation="portraitlandscape">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="ONE MOBILE"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="ONE MOBILE"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_video" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../Applications/JUCE5.0/modules"/>
+      </MODULEPATHS>
+    </XCODE_IPHONE>
+    <ANDROIDSTUDIO targetFolder="Builds/Android">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" androidArchitectures="armeabi x86" isDebug="1" optimisation="1"
+                       targetName="ONE MOBILE"/>
+        <CONFIGURATION name="Release" androidArchitectures="" isDebug="0" optimisation="3"
+                       targetName="ONE MOBILE"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_video" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../../Applications/JUCE5.0/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../Applications/JUCE5.0/modules"/>
+      </MODULEPATHS>
+    </ANDROIDSTUDIO>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>

@@ -88,7 +88,7 @@ public:
     less("Less","Less")
     {
         otherLookAndFeel.setColour(Slider::thumbColourId, juce::Colours::transparentBlack);
-        otherLookAndFeel.setColour(Slider::backgroundColourId, Colours::grey);
+        otherLookAndFeel.setColour(Slider::backgroundColourId, Colours::black);
         otherLookAndFeel.setColour(Slider::trackColourId, Colours::black);
         otherLookAndFeel.setColour(Slider::rotarySliderFillColourId, Colours::purple);
         otherLookAndFeel.setColour(Slider::rotarySliderOutlineColourId, Colours::black);

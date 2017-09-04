@@ -23,7 +23,7 @@
  */
 
 //#include "JuceHeader.h"
-#include "PluginEditor.h"
+
 #include "math.h"
 //==============================================================================
 /**
