@@ -87,11 +87,12 @@ public:
     more("More","More"),
     less("Less","Less")
     {
+		
         otherLookAndFeel.setColour(Slider::thumbColourId, juce::Colours::transparentBlack);
-        otherLookAndFeel.setColour(Slider::backgroundColourId, Colours::black);
-        otherLookAndFeel.setColour(Slider::trackColourId, Colours::black);
-        otherLookAndFeel.setColour(Slider::rotarySliderFillColourId, Colours::purple);
-        otherLookAndFeel.setColour(Slider::rotarySliderOutlineColourId, Colours::black);
+        otherLookAndFeel.setColour(Slider::backgroundColourId, Colours::white);
+        otherLookAndFeel.setColour(Slider::trackColourId, Colours::lightgrey);
+        otherLookAndFeel.setColour(Slider::rotarySliderFillColourId, Colours::white);
+        otherLookAndFeel.setColour(Slider::rotarySliderOutlineColourId, Colours::lightgrey);
         float x=100;
         float y=100;
         
@@ -101,6 +102,7 @@ public:
         //setSize(1136,350); //iphone 5s
         
         setSize(200,200);
+		//setResizable(true, true);
         const OwnedArray<AudioProcessorParameter>& params = parent.getParameters();
         
         for (int i = 0; i < params.size(); ++i)
@@ -140,7 +142,7 @@ public:
                     aSlider->setLookAndFeel(&otherLookAndFeel);
                     aSlider->setValue (*param);
                     aSlider->addListener (this);
-                    aSlider->setCentrePosition(x,y*1.05);
+                    aSlider->setCentrePosition(x,y*1.35);
                     aSlider->setBounds(0,0,getWidth()-30,getHeight()-30);
                     aSlider->setCentrePosition(100,105);
                     addAndMakeVisible (aSlider);
@@ -208,7 +210,7 @@ public:
         AudioProcessor::Bus* leftBus = hack.getBus(getAudioProcessor(),0);
         AudioBuffer a=leftBus->getBusBuffer();
         */
-        g.fillAll (Colours::black);
+        g.fillAll (Colours::lightgrey);
         //g.setColour(Colours::black);
         // (Our component is opaque, so we must completely fill the background with a solid colour)
         g.setColour(Colours::white);
@@ -216,11 +218,12 @@ public:
         
         //g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(left)));
         //g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(right)));
-        g.setFont (10.0f);
+        g.setFont(Font("helvetica",20.0f,Font::bold));
         //g.drawFittedText (std::to_string(processor.monoLevel), getLocalBounds(), Justification::centred, 1);
-        //g.drawFittedText("Suck",0,0,200,15,Justification::centred,1);
-        //g.drawFittedText("More",0,185,30,200,Justification::centred,1);
-        //g.drawFittedText("Less",170,185,200,200,Justification::centred,1);
+        g.drawText("Suck",0,7,200,15,Justification::centred,1);
+		g.setFont(Font("helvetica", 15.0f, Font::bold));
+        g.drawText("More",0,160,55,45, Justification::centred,1);
+        g.drawText("Less",145,160,55,45,Justification::centred,1);
         
         /*
         if (isnan(log(parent.left)/log(powf(2.0, 1.0/6.0))==0))
