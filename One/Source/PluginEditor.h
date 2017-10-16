@@ -83,16 +83,16 @@ public:
     GenericEditor (AudioProcessor& parent)
     : AudioProcessorEditor (parent),
     noParameterLabel ("noparam", "No parameters available"),
-    suck("Suck","Suck"),
+    polish("Polish","Polish"),
     more("More","More"),
     less("Less","Less")
     {
 		
         otherLookAndFeel.setColour(Slider::thumbColourId, juce::Colours::transparentBlack);
         otherLookAndFeel.setColour(Slider::backgroundColourId, Colours::white);
-        otherLookAndFeel.setColour(Slider::trackColourId, Colours::lightgrey);
+        otherLookAndFeel.setColour(Slider::trackColourId, Colours::black);
         otherLookAndFeel.setColour(Slider::rotarySliderFillColourId, Colours::white);
-        otherLookAndFeel.setColour(Slider::rotarySliderOutlineColourId, Colours::lightgrey);
+        otherLookAndFeel.setColour(Slider::rotarySliderOutlineColourId, Colours::grey);
         float x=100;
         float y=100;
         
@@ -150,18 +150,18 @@ public:
             }
         }
         /*
-        suck.setText("Suck",dontSendNotification);
-        suck.setBounds(0,0,200,200);
-        suck.setCentrePosition(15,100);
-        addAndMakeVisible(suck);
-        more.setText("More",dontSendNotification);
-        more.setBounds(0,0,200,200);
-        more.setCentrePosition(185,15);
-        addAndMakeVisible(more);
+        polish.setText("Polish",dontSendNotification);
+        polish.setBounds(0,0,200,200);
+        polish.setCentrePosition(15,100);
+        addAndMakeVisible(polish);
         less.setText("Less",dontSendNotification);
         less.setBounds(0,0,200,200);
-        less.setCentrePosition(185,185);
+        less.setCentrePosition(185,15);
         addAndMakeVisible(less);
+        more.setText("More",dontSendNotification);
+        more.setBounds(0,0,200,200);
+        more.setCentrePosition(185,185);
+        addAndMakeVisible(more);
         */
         
         //setSize (kParamSliderWidth + kParamLabelWidth,jmax (1, kParamControlHeight * paramSliders.size()));
@@ -210,20 +210,21 @@ public:
         AudioProcessor::Bus* leftBus = hack.getBus(getAudioProcessor(),0);
         AudioBuffer a=leftBus->getBusBuffer();
         */
-        g.fillAll (Colours::lightgrey);
+        g.fillAll (Colours::darkgrey);
         //g.setColour(Colours::black);
         // (Our component is opaque, so we must completely fill the background with a solid colour)
         g.setColour(Colours::white);
         
-        
+
+
         //g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(left)));
         //g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(right)));
         g.setFont(Font("helvetica",20.0f,Font::bold));
         //g.drawFittedText (std::to_string(processor.monoLevel), getLocalBounds(), Justification::centred, 1);
-        g.drawText("Suck",0,7,200,15,Justification::centred,1);
+        //g.drawText("Polish",0,7,200,15,Justification::centred,1);
 		g.setFont(Font("helvetica", 15.0f, Font::bold));
-        g.drawText("More",0,160,55,45, Justification::centred,1);
-        g.drawText("Less",145,160,55,45,Justification::centred,1);
+        //g.drawText("0%",0,160,55,45, Justification::centred,1);
+        //g.drawText("100%",145,160,55,45,Justification::centred,1);
         
         /*
         if (isnan(log(parent.left)/log(powf(2.0, 1.0/6.0))==0))
@@ -322,9 +323,9 @@ private:
     }
     LookAndFeel_V4 otherLookAndFeel;
     Label noParameterLabel;
-    Label suck;
-    Label more;
+    Label polish;
     Label less;
+    Label more;
     OwnedArray<Slider> paramSliders;
     OwnedArray<Label> paramLabels;
     ScopedPointer<ParameterSlider> gainSlider;
