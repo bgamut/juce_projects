@@ -146,9 +146,11 @@ public:
                     //aSlider->setCentrePosition(x,y*1.35);
                     aSlider->setBounds(0,0,getWidth()-7,getHeight()-7);
                     aSlider->setCentrePosition(x,int(y*1.05));
+                    /*
                     aSlider->setCentrePosition(x,y*1.35);
                     aSlider->setBounds(0,0,getWidth()-30,getHeight()-30);
                     aSlider->setCentrePosition(100,105);
+                     */
                     addAndMakeVisible (aSlider);
                 }
             }
@@ -167,19 +169,7 @@ public:
          more.setCentrePosition(185,185);
          addAndMakeVisible(more);
          */
-        polish.setText("Polish",dontSendNotification);
-        polish.setBounds(0,0,200,200);
-        polish.setCentrePosition(15,100);
-        addAndMakeVisible(polish);
-        less.setText("Less",dontSendNotification);
-        less.setBounds(0,0,200,200);
-        less.setCentrePosition(185,15);
-        addAndMakeVisible(less);
-        more.setText("More",dontSendNotification);
-        more.setBounds(0,0,200,200);
-        more.setCentrePosition(185,185);
-        addAndMakeVisible(more);
-
+        
         //setSize (kParamSliderWidth + kParamLabelWidth,jmax (1, kParamControlHeight * paramSliders.size()));
         //splash.deleteAfterDelay(RelativeTime::seconds(4),false);
         if (paramSliders.size() == 0)
@@ -243,7 +233,7 @@ public:
             AudioBuffer<FloatType> getBusBuffer;
             
         };
-        /*
+        
         Hack hack;
         AudioProcessor::Bus* leftBus = hack.getBus(getAudioProcessor(),0);
         AudioBuffer a=leftBus->getBusBuffer();
@@ -258,8 +248,8 @@ public:
         g.setFont(Font("helvetica",20.0f,Font::bold));
         //g.drawFittedText (std::to_string(processor.monoLevel), getLocalBounds(), Justification::centred, 1);
         //g.drawText("Polish",0,7,200,15,Justification::centred,1);
-        g.setFont(Font("helvetica", 15.0f, Font::bold));
-		g.setFont(Font("helvetica", 15.0f, Font::bold));
+        //g.setFont(Font("helvetica", 15.0f, Font::bold));
+		//g.setFont(Font("helvetica", 15.0f, Font::bold));
         //g.drawText("0%",0,160,55,45, Justification::centred,1);
         //g.drawText("100%",145,160,55,45,Justification::centred,1);
         
