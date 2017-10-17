@@ -22,52 +22,52 @@
  ==============================================================================
  */
 /*
-#define JucePlugin_MaxNumInputChannels 2
-#define JucePlugin_MaxNumOutputChannels 2
-#define JucePlugin_PreferredChannelConfigurations {1, 1}, {2, 2}
-*/
+ #define JucePlugin_MaxNumInputChannels 2
+ #define JucePlugin_MaxNumOutputChannels 2
+ #define JucePlugin_PreferredChannelConfigurations {1, 1}, {2, 2}
+ */
 #include "JuceHeader.h"
 /*
-class bufferUp: public AudioProcessor{
-    public:
-        bufferUp()
-        {
-            leftNow(0.0);
-            rightNow(0.0);
-        }
-        ~bufferUp(){}
-    void prepareToPlay(double sampleRate,int samplesPerBlock) override{
-        
-        
-    }
-    void processBlock(AudioSampleBuffer& buffer, MidiBuffer&) override
-    {
-        AudioSampleBuffer main=getBusBuffer(buffer,true,0);
-        if(getNumInputChannels()==1)
-        {
-            for (int i=0; i<main.getNumSamples(); ++i)
-            {
-                leftNow=main.getSample(0,i);
-                rightNow=main.getSample(0,i);
-                
-            }
-        }
-        else
-        {
-            for (int i=0; i<main.getNumSamples(); ++i)
-            {
-                leftNow=main.getSample(0,i);
-                rightNow=main.getSample(1,i);
-                
-                
-        }
-    }
-    float leftNow;
-    float rightNow;
-    private:
-    
-}
-*/
+ class bufferUp: public AudioProcessor{
+ public:
+ bufferUp()
+ {
+ leftNow(0.0);
+ rightNow(0.0);
+ }
+ ~bufferUp(){}
+ void prepareToPlay(double sampleRate,int samplesPerBlock) override{
+ 
+ 
+ }
+ void processBlock(AudioSampleBuffer& buffer, MidiBuffer&) override
+ {
+ AudioSampleBuffer main=getBusBuffer(buffer,true,0);
+ if(getNumInputChannels()==1)
+ {
+ for (int i=0; i<main.getNumSamples(); ++i)
+ {
+ leftNow=main.getSample(0,i);
+ rightNow=main.getSample(0,i);
+ 
+ }
+ }
+ else
+ {
+ for (int i=0; i<main.getNumSamples(); ++i)
+ {
+ leftNow=main.getSample(0,i);
+ rightNow=main.getSample(1,i);
+ 
+ 
+ }
+ }
+ float leftNow;
+ float rightNow;
+ private:
+ 
+ }
+ */
 class GenericEditor : public AudioProcessorEditor,
 public Slider::Listener,
 private Timer
@@ -81,13 +81,14 @@ public:
     };
     
     GenericEditor (AudioProcessor& parent)
-    : AudioProcessorEditor (parent),
+    :AudioProcessorEditor (parent),
     noParameterLabel ("noparam", "No parameters available"),
     polish("Polish","Polish"),
     more("More","More"),
-    less("Less","Less")
+    less("Less","Less"),
+    original (ImageCache::getFromMemory (BinaryData::image_png,BinaryData::image_pngSize))
+    //,splash ("",original,false)
     {
-		
         otherLookAndFeel.setColour(Slider::thumbColourId, juce::Colours::transparentBlack);
         otherLookAndFeel.setColour(Slider::backgroundColourId, Colours::white);
         otherLookAndFeel.setColour(Slider::trackColourId, Colours::black);
@@ -100,33 +101,33 @@ public:
         //setSize(2208,726); //iphone 6+
         //setSize(1334,404); //iphone 6
         //setSize(1136,350); //iphone 5s
-        
         setSize(200,200);
+        //setResizable(true, true);
 		//setResizable(true, true);
         const OwnedArray<AudioProcessorParameter>& params = parent.getParameters();
         
         for (int i = 0; i < params.size(); ++i)
         {
             /*
-            if (const AudioParameterFloat* param = dynamic_cast<AudioParameterFloat*> (params[i]))
-            {
-                Slider* aSlider;
-                
-                paramSliders.add (aSlider = new Slider (param->name));
-                aSlider->setRange (param->range.start, param->range.end);
-                aSlider->setSliderStyle (Slider::LinearHorizontal);
-                //aSlider->setSliderStyle (Slider::Rotary);
-                //aSlider->setTextBoxStyle(Slider::NoTextBox,true,0,0);
-                aSlider->setLookAndFeel(&otherLookAndFeel);
-                aSlider->setValue (*param);
-                aSlider->addListener (this);
-                //aSlider->setCentrePosition(x,y*1.05);
-                addAndMakeVisible (aSlider);
-                
-                Label* aLabel;
-                paramLabels.add (aLabel = new Label (param->name, param->name));
-                addAndMakeVisible (aLabel);
-            }
+             if (const AudioParameterFloat* param = dynamic_cast<AudioParameterFloat*> (params[i]))
+             {
+             Slider* aSlider;
+             
+             paramSliders.add (aSlider = new Slider (param->name));
+             aSlider->setRange (param->range.start, param->range.end);
+             aSlider->setSliderStyle (Slider::LinearHorizontal);
+             //aSlider->setSliderStyle (Slider::Rotary);
+             //aSlider->setTextBoxStyle(Slider::NoTextBox,true,0,0);
+             aSlider->setLookAndFeel(&otherLookAndFeel);
+             aSlider->setValue (*param);
+             aSlider->addListener (this);
+             //aSlider->setCentrePosition(x,y*1.05);
+             addAndMakeVisible (aSlider);
+             
+             Label* aLabel;
+             paramLabels.add (aLabel = new Label (param->name, param->name));
+             addAndMakeVisible (aLabel);
+             }
              */
             if (const AudioParameterFloat* param = dynamic_cast<AudioParameterFloat*> (params[i]))
             {
@@ -142,6 +143,9 @@ public:
                     aSlider->setLookAndFeel(&otherLookAndFeel);
                     aSlider->setValue (*param);
                     aSlider->addListener (this);
+                    //aSlider->setCentrePosition(x,y*1.35);
+                    aSlider->setBounds(0,0,getWidth()-7,getHeight()-7);
+                    aSlider->setCentrePosition(x,int(y*1.05));
                     aSlider->setCentrePosition(x,y*1.35);
                     aSlider->setBounds(0,0,getWidth()-30,getHeight()-30);
                     aSlider->setCentrePosition(100,105);
@@ -150,6 +154,19 @@ public:
             }
         }
         /*
+         polish.setText("Polish",dontSendNotification);
+         polish.setBounds(0,0,200,200);
+         polish.setCentrePosition(15,100);
+         addAndMakeVisible(polish);
+         less.setText("Less",dontSendNotification);
+         less.setBounds(0,0,200,200);
+         less.setCentrePosition(185,15);
+         addAndMakeVisible(less);
+         more.setText("More",dontSendNotification);
+         more.setBounds(0,0,200,200);
+         more.setCentrePosition(185,185);
+         addAndMakeVisible(more);
+         */
         polish.setText("Polish",dontSendNotification);
         polish.setBounds(0,0,200,200);
         polish.setCentrePosition(15,100);
@@ -162,20 +179,24 @@ public:
         more.setBounds(0,0,200,200);
         more.setCentrePosition(185,185);
         addAndMakeVisible(more);
-        */
-        
+
         //setSize (kParamSliderWidth + kParamLabelWidth,jmax (1, kParamControlHeight * paramSliders.size()));
-        
+        //splash.deleteAfterDelay(RelativeTime::seconds(4),false);
         if (paramSliders.size() == 0)
+        {
             addAndMakeVisible (noParameterLabel);
+        }
         else
+        {
             startTimerHz (30);
+        }
+        
     }
     
     ~GenericEditor()
     {
     }
-    
+
     void resized() override
     {
         Rectangle<int> r = getLocalBounds();
@@ -197,46 +218,62 @@ public:
         float y=getHeight()/2.0;
         
         /*
+         class Hack
+         {
+         public:
+         AudioProcessor::Bus* getBus(AudioProcessor* p,int x){
+         return p->getBus(false,x);
+         }
+         AudioProcessor::AudioBuffer<FloatType> getBusBuffer
+         
+         };
+         Hack hack;
+         AudioProcessor::Bus* leftBus = hack.getBus(getAudioProcessor(),0);
+         AudioBuffer a=leftBus->getBusBuffer();
+         */
+        g.fillAll (Colours::white);
+        g.drawImageAt(original, x-74, int(y*1.05)-74);
+        /*
         class Hack
         {
         public:
             AudioProcessor::Bus* getBus(AudioProcessor* p,int x){
                 return p->getBus(false,x);
             }
-            AudioProcessor::AudioBuffer<FloatType> getBusBuffer
+            AudioBuffer<FloatType> getBusBuffer;
             
         };
+        /*
         Hack hack;
         AudioProcessor::Bus* leftBus = hack.getBus(getAudioProcessor(),0);
         AudioBuffer a=leftBus->getBusBuffer();
         */
-        g.fillAll (Colours::darkgrey);
+        //g.fillAll (Colours::darkgrey);
         //g.setColour(Colours::black);
         // (Our component is opaque, so we must completely fill the background with a solid colour)
         g.setColour(Colours::white);
-        
-
 
         //g.fillRect(0,int(getHeight()),int(x),-(int)fabs(getHeight()*(left)));
         //g.fillRect(int(x),int(getHeight()),int(x),-(int)fabs(getHeight()*(right)));
         g.setFont(Font("helvetica",20.0f,Font::bold));
         //g.drawFittedText (std::to_string(processor.monoLevel), getLocalBounds(), Justification::centred, 1);
         //g.drawText("Polish",0,7,200,15,Justification::centred,1);
+        g.setFont(Font("helvetica", 15.0f, Font::bold));
 		g.setFont(Font("helvetica", 15.0f, Font::bold));
         //g.drawText("0%",0,160,55,45, Justification::centred,1);
         //g.drawText("100%",145,160,55,45,Justification::centred,1);
         
         /*
-        if (isnan(log(parent.left)/log(powf(2.0, 1.0/6.0))==0))
-        {
-            g.drawFittedText(std::to_string(log(parent.left)/log(powf(2.0, 1.0/6.0))),0,int(getHeight()-20),int(x),20,Justification::centred,1);
-        }
-        if (isnan(log(parent.right)/log(powf(2.0, 1.0/6.0))==0))
-        {
-            g.drawFittedText(std::to_string(log(processor.right)/log(powf(2.0, 1.0/6.0))),int(x),int(getHeight()-20),int(x),20,Justification::centred,1);
-        }
-        */
-         
+         if (isnan(log(parent.left)/log(powf(2.0, 1.0/6.0))==0))
+         {
+         g.drawFittedText(std::to_string(log(parent.left)/log(powf(2.0, 1.0/6.0))),0,int(getHeight()-20),int(x),20,Justification::centred,1);
+         }
+         if (isnan(log(parent.right)/log(powf(2.0, 1.0/6.0))==0))
+         {
+         g.drawFittedText(std::to_string(log(processor.right)/log(powf(2.0, 1.0/6.0))),int(x),int(getHeight()-20),int(x),20,Justification::centred,1);
+         }
+         */
+        
         
         setResizable(true,true);
         
@@ -326,6 +363,8 @@ private:
     Label polish;
     Label less;
     Label more;
+    Image original;
+    //SplashScreen splash;
     OwnedArray<Slider> paramSliders;
     OwnedArray<Label> paramLabels;
     ScopedPointer<ParameterSlider> gainSlider;
